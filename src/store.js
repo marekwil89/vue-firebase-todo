@@ -2,15 +2,21 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from './firebase';
 
+import * as firebase from 'firebase'
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        todos: []
+        todos: [],
+        logedUser: null
     },
     getters: {
+        getLogedUser: (state) => {
+            return state.logedUser
+        },
         getTodos: (state) => {
-            db.once('value').then(function(data) {
+            db.ref('todos').once('value').then(function(data) {
                 state.todos = data.val();
             });
             return state.todos;
@@ -18,12 +24,30 @@ const store = new Vuex.Store({
     },
     actions: {
         addTodo: (context, todoText) => {
-            db.push({
+            db.ref('todos').push({
                 text: todoText,
                 done: false
             })
+        },
+        registerNewUser: ({commit}, newUser) => {
+            firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
+            .then((user) => {
+                const newUser = {
+                    email: user.email,
+                    id: user.uid
+                }
+                commit('setUser', newUser)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
-    }
+    },
+    mutations: {
+        setUser (state, newUser) {
+          state.logedUser = newUser
+        }
+    },
     // mutations: {
     //     toggle: function () {
     //         console.log('dada');

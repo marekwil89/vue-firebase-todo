@@ -2,8 +2,7 @@
   <section class="todos-list-section">
     <ul>
       <li v-for="todo in todos" v-bind:key="todo['.key']">
-        <p>{{todo.text}}</p> 
-        <p>{{todo.done}}</p>
+        <p>{{todo.text}} {{todo.done}}</p> 
       </li>
     </ul>
 
@@ -38,7 +37,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>

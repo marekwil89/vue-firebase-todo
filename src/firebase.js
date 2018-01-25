@@ -9,4 +9,4 @@ const app = initializeApp({
     messagingSenderId: "778079726049"
 });
 
-export const db = app.database().ref('todos')
+export const db = app.database();

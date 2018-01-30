@@ -1,13 +1,8 @@
 <template>
-  <div id="app">
-    <nav>
-      <ul>
-        <li><router-link to="/register">Register form</router-link></li>
-        <li><router-link to="/">List</router-link></li>
-      </ul>
-    </nav>
+  <v-app>
+    <navigation></navigation>
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -17,7 +12,5 @@
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  }
+
 </style>
